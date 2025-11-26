@@ -1,9 +1,14 @@
+import * as NavigationBar from 'expo-navigation-bar';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Button, StatusBar, Text, TextInput, View } from 'react-native';
+
 import "./global.css";
 
+NavigationBar.setVisibilityAsync("hidden");
+
 export default function HomeScreen() {
+  
   StatusBar.setHidden(true);
   const [ipAddress, setIpAddress] = React.useState(null);
   const router = useRouter();
