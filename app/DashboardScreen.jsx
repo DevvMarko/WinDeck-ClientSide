@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Button, Image, StatusBar, Text, View } from "react-native";
 import "./global.css";
 
-// const API_URL = "192.168.100.214:6776";
 NavigationBar.setVisibilityAsync("hidden");
 
 export default function DashboardScreen() {
