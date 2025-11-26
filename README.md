@@ -58,3 +58,13 @@ To run the app in debug mode or modify the code:
    ```bash
    npx expo start
 4. Scan the QR code with the Expo Go app or run on an Android Emulator.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ✍️ Author
+
+Project created by [@DevvMarko](https://github.com/DevvMarko) and I invite you to visit the author's portfolio page [mbarchanski.pl](https://mbarchanski.pl)
