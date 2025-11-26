@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# 📱 WinDeck Client - Remote Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Mobile client for the WinDeck system. Built with React Native and Expo, this app connects to the Windows Server to control volume and media playback remotely.
 
-## Get started
+> **🖥️ Looking for the PC Server?**
+> The Server code (Python) can be found here: [WinDeck-ServerSide](https://github.com/DevvMarko/WinDeck-ServerSide)
 
-1. Install dependencies
+---
 
+## 📸 Screenshots
+
+| Connection Screen | Control Panel |
+|:---:|:---:|
+| ![Connect](./assets/screenshots/windeckclient-s1.jpg) | ![Control](./assets/screenshots/windeckclient-s2.jpg) |
+
+## 🚀 Features
+
+* 🔗 **Easy Connection:** Simply enter the IP and Port provided by the server console.
+* 🎚️ **Volume Slider:** Real-time volume adjustment.
+* 🎵 **Media Controls:** Play, Pause, Skip, and Rewind buttons.
+* 🎨 **Modern UI:** Clean and responsive interface.
+
+## 🛠️ Tech Stack
+
+* ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
+* ![NativeWind](https://img.shields.io/badge/NativeWind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+---
+
+## 📥 Download & Install (APK)
+
+To install the application on your Android device:
+
+1. Go to the **[Releases](https://github.com/DevvMarko/WinDeck-ClientSide/releases/tag/v1.0.0)** section on the right.
+2. Download the latest `WinDeck-Client.apk` file.
+3. Transfer the file to your phone and install it.
+4. **Important:** Ensure your phone and PC are connected to the same Wi-Fi network!
+
+---
+
+## 💻 Local Development
+
+To run the app in debug mode or modify the code:
+
+### Prerequisites
+* Node.js
+* Expo CLI (optional)
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DevvMarko/WinDeck-ClientSide.git
+2. Install dependencies:
    ```bash
    npm install
-   ```
-
-2. Start the app
-
+3. Start the project
    ```bash
    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+4. Scan the QR code with the Expo Go app or run on an Android Emulator.
