@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from "react";
-import { Button, Image, StatusBar, Text, View } from "react-native";
+import { Button, Image, ScrollView, StatusBar, Text, View, useWindowDimensions } from "react-native";
 import "./global.css";
 
 NavigationBar.setVisibilityAsync("hidden");
@@ -15,6 +15,11 @@ export default function DashboardScreen() {
   const [time, setTime] = useState(new Date());
   const [error, setError] = useState("");
   const { API_URL } = useLocalSearchParams();
+
+  const { width, height } = useWindowDimensions();
+  const isTablet = width > 900;
+  const screenFactor = isTablet ? 1 : 0.45;
+
   
   // function to fetch pause control
   const fetchControlPause = async () => {
@@ -130,27 +135,27 @@ export default function DashboardScreen() {
               </View>
             )}
 
-            <View className="z-10 items-center">
-              <Text className="text-white text-3xl font-bold text-center mb-2">
+            <View className="items-center">
+              <Text className={`text-white ${isTablet ? 'text-3xl' : 'text-xl'} font-bold text-center mb-2`}>
                 {songInfo?.title || "No Song Playing"}
               </Text>
-              <Text className="text-white text-2xl text-center mb-1">
+              <Text className={`text-white ${isTablet ? 'text-2xl' : 'text-lg'} text-center mb-1`}>
                 {songInfo?.artist || "Unknown Artist"}
               </Text>
-              <Text className="text-white text-xl text-center mb-4 opacity-80">
+              <Text className={`text-white ${isTablet ? 'text-xl' : 'text-base'} text-center mb-0 opacity-80`}>
                 {songInfo?.album || "Unknown Album"}
               </Text>
                 <View className="flex flex-row gap-10 mt-4 items-center justify-center">
-                <View style={{ transform: [{ scale: 1.8 }] }}>
+                <View style={{ transform: [{ scale: isTablet ? 1.8 : 1 }] }}>
                   <Button title="⏮" onPress={fetchControlPrev} />
                 </View>
-                <View style={{ transform: [{ scale: 1.8 }] }}>
+                <View style={{ transform: [{ scale: isTablet ? 1.8 : 1 }] }}>
                   <Button title="⏸" onPress={fetchControlPause} />
                 </View>
-                <View style={{ transform: [{ scale: 1.8 }] }}>
+                <View style={{ transform: [{ scale: isTablet ? 1.8 : 1 }] }}>
                   <Button title="▶" onPress={fetchControlPlay} />
                 </View>
-                <View style={{ transform: [{ scale: 1.8 }] }}>
+                <View style={{ transform: [{ scale: isTablet ? 1.8 : 1 }] }}>
                   <Button title="⏭" onPress={fetchControlNext} />
                 </View>
                 </View>
@@ -170,37 +175,49 @@ export default function DashboardScreen() {
       </View>
       
       {/* Second row - Volume */}
-      <View className="flex-1 bg-neutral-700 rounded-lg p-4">
+      <View className="flex-1 bg-neutral-700 rounded-lg p-2">
         {masterDisplay ? (
-          <View className="flex-1 flex-row justify-evenly items-stretch">
-        {Object.entries(masterDisplay).map(([proc, vol]) => (
-          <View key={proc} className="flex-1 items-center mx-2">
-            <Text className="text-white text-xs text-center mb-2 w-24" numberOfLines={2}>{proc}</Text>
-            <View className="flex-1 w-full justify-center items-center" style={{ minHeight: 200 }}>
-              <View style={{ height: 200, width: 40, justifyContent: 'center', alignItems: 'center' }}>
-                <Slider
-                value={vol}
-                minimumValue={0}
-                maximumValue={1}
-                step={0.01}
-                style={{ width: 200, height: 40, transform: [{ rotate: '-90deg' }] }}
-                minimumTrackTintColor="#8B5CF6"
-                maximumTrackTintColor="#333"
-                thumbTintColor="#EC4899"
-                onSlidingComplete={async (value) => {
-                  try {
-                    await fetch(`http://${API_URL}/volume/${encodeURIComponent(proc)}/${value}`);
-                  } catch (e) {
-                  console.error('Error setting volume:', e);
-                  }
-                }}
-                />
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            className="flex-1"
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: 'space-evenly', 
+              alignItems: 'center',
+              paddingHorizontal: 10
+            }}
+          >
+            {Object.entries(masterDisplay).map(([proc, vol]) => (
+              <View key={proc} className="items-center mx-2">
+                
+                <Text className="text-white text-xs text-center mb-2" numberOfLines={1} style={{ maxWidth: 80 }}>
+                  {proc}
+                </Text>
+                <View className="justify-center items-center" style={{ height: screenFactor * 220 }}>
+                  <View style={{ height: screenFactor * 220, width: 40, justifyContent: 'center', alignItems: 'center' }}>
+                    <Slider
+                      value={vol}
+                      minimumValue={0}
+                      maximumValue={1}
+                      step={0.01}
+                      style={{ width: screenFactor * 220, height: 40, transform: [{ rotate: '-90deg' }] }}
+                      minimumTrackTintColor="#8B5CF6"
+                      maximumTrackTintColor="#333"
+                      thumbTintColor="#EC4899"
+                      onSlidingComplete={async (value) => {
+                        try {
+                          await fetch(`http://${API_URL}/volume/${encodeURIComponent(proc)}/${value}`);
+                        } catch (e) { console.error(e); }
+                      }}
+                    />
+                  </View>
+                </View>
+                
+                <Text className="text-white mt-2 font-bold">{Math.round((vol) * 100)}%</Text>
               </View>
-              <Text className="text-white mt-1">{Math.round((vol) * 100)}%</Text>
-            </View>
-          </View>
-        ))}
-          </View>
+            ))}
+          </ScrollView>
         ) : (
           <Text className="text-center text-white">Loading...</Text>
         )}
